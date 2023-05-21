@@ -46,55 +46,5 @@ const Client = db.define("client", {
     },
 });
 
-// make function function for create , get , update , delete
-Client.create = (data) => {
-    // if eror throw error
-    try {
-        return Client.create(data);
-    } catch (error) {
-        throw error;
-    }
-};
-
-Client.getAll = () => {
-    try {
-        return Client.findAll();
-    } catch (error) {
-        throw error;
-    }
-};
-
-// update
-Client.update = (data, where) => {
-    try {
-        return Client.update(data, where);
-    } catch (error) {
-        throw error;
-    }
-};
-
-// delete
-Client.destroy = (where) => {
-    try {
-        return Client.destroy(where);
-    } catch (error) {
-        throw error;
-    }
-};
-
-// get by id
-Client.get = (id) => {
-    try {
-        return Client.findByPk(id);
-    } catch (error) {
-        throw error;
-    }
-};
-
-// // sync model force
-// Client.sync({
-//     alter: true
-// });
-
 
 module.exports = Client;

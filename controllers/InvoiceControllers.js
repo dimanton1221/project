@@ -1,114 +1,90 @@
 const InvoiceModels = require("../models/InvoiceModels");
 
-// create invoice
-const createInvoice = async (req, res) => {
-  const { user_id, client_id, tanggal, jumlah, status_pembayaran, qr_code } =
-    req.body;
-
-  InvoiceModels.create({
-    user_id: user_id,
-    client_id: client_id,
-    tanggal: tanggal,
-    jumlah: jumlah,
-    status_pembayaran: status_pembayaran,
-    qr_code: qr_code,
-  })
-    .then((result) => {
-      res.status(201).json({
-        message: "Invoice created successfully",
-        data: result,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        error: err.errors,
-      });
-    });
-};
-
-const getInvoice = async (req, res) => {
-  const { id } = req.params;
-
-  InvoiceModels.get(id)
-    .then((result) => {
-      res.status(200).json({
-        message: "Invoice found",
-        data: result,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        error: err.errors,
-      });
-    });
-};
-
+// get all invoice
 const getAllInvoice = async (req, res) => {
-  InvoiceModels.getAll()
-    .then((result) => {
-      res.status(200).json({
-        message: "Invoice found",
-        data: result,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        error: err.errors,
-      });
-    });
+    try { 
+        const invoices = await InvoiceModels.findAll();
+        // jika kosong maka tidak ada data
+        if (invoices.length === 0) {
+            // tetap response 200
+            res.status(200).json({
+                message: "Invoice not found",
+                count: invoices.length,
+                data: invoices
+            });
+        }
+        // jika ada data maka tampilkan
+        else {
+            res.status(200).json({
+                message: "Invoice found",
+                count: invoices.length,
+                data: invoices
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            error: err.errors,
+        });
+    }
 };
 
-// update invoice
-const updateInvoice = async (req, res) => {
-  const { id } = req.params;
-  const { user_id, client_id, tanggal, jumlah, status_pembayaran, qr_code } =
-    req.body;
-
-  const invoice = {
-    user_id: user_id,
-    client_id: client_id,
-    tanggal: tanggal,
-    jumlah: jumlah,
-    status_pembayaran: status_pembayaran,
-    qr_code: qr_code,
-  };
-
-  InvoiceModels.update(invoice, { where: { invoice_id: id } })
-    .then((result) => {
-      res.status(200).json({
-        message: "Invoice updated successfully",
-        data: result,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        error: err.errors,
-      });
-    });
+// by id
+const getInvoicebyid = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const invoice = await InvoiceModels.findByPk(id);
+        // if data null
+        if (!invoice) {
+            res.status(200).json({
+                message: "Invoice not found",
+                data: invoice
+            });
+        } else {
+            res.status(200).json({
+                message: "Invoice found",
+                data: invoice
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            error: err.errors,
+        });
+    }
 };
 
-// delete invoice
-const deleteInvoice = async (req, res) => {
-  const { id } = req.params;
-
-  InvoiceModels.destroy({ where: { invoice_id: id } })
-    .then((result) => {
-      res.status(200).json({
-        message: "Invoice deleted successfully",
-        data: result,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        error: err.errors,
-      });
-    });
+// create
+const createInvoice = async (req, res) => {
+    try {
+        const { user_id, client_id, tanggal, jumlah, status_pembayaran, qr_code } = req.body;
+        // create invoice use model method sequelize
+        const invoice = await InvoiceModels.create({
+            user_id,
+            client_id,
+            tanggal,
+            jumlah,
+            status_pembayaran,
+            qr_code
+        });
+        // if success
+        if (invoice) {
+            res.status(201).json({
+                message: "Invoice created",
+                data: invoice
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            error: err.errors,
+        });
+    }
 };
+
+
+
+
 
 module.exports = {
-    createInvoice,
-    getInvoice,
     getAllInvoice,
-    updateInvoice,
-    deleteInvoice,
-};
+    getInvoicebyid,
+    createInvoice
+}

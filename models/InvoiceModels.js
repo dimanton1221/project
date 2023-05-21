@@ -43,31 +43,6 @@ InvoiceModel = db.define('Invoice', {
     }
 });
 
-// Create, get, update, delete functions
-
-InvoiceModel.create = (invoice) => {
-    return InvoiceModel.create(invoice);
-};
-
-InvoiceModel.get = (id) => {
-    return InvoiceModel.findByPk(id);
-};
-
-InvoiceModel.getAll = () => {
-    return InvoiceModel.findAll();
-};
-
-InvoiceModel.update = (invoice, where) => {
-    return InvoiceModel.update(invoice, where);
-};
-
-InvoiceModel.delete = (id) => {
-    return InvoiceModel.destroy({
-        where: {
-            invoice_id: id
-        }
-    });
-};
 
 // Define relationships
 

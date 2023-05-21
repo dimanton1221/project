@@ -65,8 +65,24 @@ const createUser = async (req, res) => {
   }
 };
 
-// update password 
-
+// update password
+const updatePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+    // use argon2 to hash password
+    const hashedPassword = await argon2.hash(password);
+    const result = await User.updatePassword(id, hashedPassword);
+    res.status(201).json({
+      message: "Password updated successfully",
+      data: result,
+    });
+  } catch (err) {
+    res.status(400).json({
+      error: err.errors,
+    });
+  }
+};
 
 module.exports = {
   getAllUsers,
