@@ -11,12 +11,12 @@ const isLogin = async (req, res, next) => {
       next();
     } else {
       res.status(401).json({
-        message: "Password not match",
+        message: "Please Login",
       });
     }
   } catch (err) {
     res.status(401).json({
-      message: "User not found",
+      message: "Please Login",
     });
   }
 };
@@ -39,3 +39,9 @@ const isAdmin = async (req, res, next) => {
     });
   }
 };
+
+
+module.exports = {
+  isAdmin,
+  isLogin
+}

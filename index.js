@@ -10,6 +10,7 @@ const userRouters = require("./routers/userRoutes");
 const jadwalRouters = require("./routers/JadwalRoutes");
 const ClientRouters = require("./routers/ClientRouters");
 const InvoiceRouters = require("./routers/InvoiceRoutes");
+const MeRouters = require("./routers/MeRoute");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -55,7 +56,7 @@ app.use("/users", userRouters);
 app.use("/jadwals", jadwalRouters);
 app.use("/clients", ClientRouters);
 app.use("/invoices", InvoiceRouters);
-// app.use("/user",userRouters);
+app.use("/me",MeRouters);
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });

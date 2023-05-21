@@ -67,7 +67,7 @@ const createClient = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       error: "Client not created",
-      message: err.message,
+      message: err.errors[0].message,
     });
   }
 };

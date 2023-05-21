@@ -11,6 +11,7 @@ const DeliverySchedule = db.define("delivery_schedule", {
   invoice_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
     references: {
       model: Invoice,
       key: "invoice_id",
@@ -22,13 +23,16 @@ const DeliverySchedule = db.define("delivery_schedule", {
   },
 });
 
-Invoice.hasMany(DeliverySchedule, {
-    foreignKey: "invoice_id",
+Invoice.hasOne(DeliverySchedule, {
+  foreignKey: "invoice_id",
 });
 
 DeliverySchedule.belongsTo(Invoice, {
   foreignKey: "invoice_id",
 });
+
+
+// DeliverySchedule.sync({ alter: true , force: true});
 
 
 module.exports = DeliverySchedule;

@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const AuthController = require('../controllers/AuthControllers');
-
+const VerifyAuth = require("../middleware/AuthVerify")
 
 Router.get("/login", (req, res) => {   
     res.render("login", { title: "Login" });
