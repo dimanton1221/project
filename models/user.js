@@ -86,21 +86,52 @@ const getUser = async (username) => {
     }
 };
 
-// create user
-const createUser = async (user) => {
+// GET ALL USERS
+const getAllUsers = async () => {
     try {
-        const newUser = await User.create(user);
-        return newUser;
+        const users = await User.findAll();
+        return users;
     } catch (err) {
         throw err;
     }
 };
+
+// get user by id
+const getUserById = async (id) => {
+    try {
+        const user = await User.findOne({
+            where: {
+                user_id: id,
+            },
+        });
+        return user;
+    } catch (err) {
+        throw err;
+    }
+};
+
+// create new user
+const createUser = async (username, email, password, role) => {
+    try {
+        const user = await User.create({
+            username,
+            email,
+            password,
+            role,
+        });
+        return user;
+    } catch (err) {
+        throw err;
+    }
+};
+
 
 // User.sync({ alter: true });
 
 module.exports = {
     User,
     getUser,
+    getAllUsers,
     createUser,
     // login,
 };
