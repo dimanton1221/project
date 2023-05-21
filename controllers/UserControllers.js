@@ -65,6 +65,9 @@ const createUser = async (req, res) => {
   }
 };
 
+// update password 
+
+
 module.exports = {
   getAllUsers,
   GetUser,

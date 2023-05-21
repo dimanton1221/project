@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 const UserModels = require('../models/user');
 const ClientModels = require('../models/ClientModels');
 
-const InvoiceModel = db.define('Invoice', {
+InvoiceModel = db.define('Invoice', {
     invoice_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -76,9 +76,5 @@ InvoiceModel.belongsTo(UserModels.User, { foreignKey: 'user_id' });
 
 ClientModels.hasMany(InvoiceModel, { foreignKey: 'client_id' });
 InvoiceModel.belongsTo(ClientModels, { foreignKey: 'client_id' });
-
-// Sync the model
-
-// InvoiceModel.sync({ alter: true });
 
 module.exports = InvoiceModel;

@@ -11,6 +11,6 @@ Router.get("/:id", LoginControllers.GetUser);
 // create user
 Router.post("/", LoginControllers.createUser);
 
-
+// Router.patch("/:id", LoginControllers.updateUser);
 
 module.exports = Router;

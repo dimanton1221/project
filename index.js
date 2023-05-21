@@ -2,6 +2,8 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const sessions = require("express-session");
 const mysqlStore = require("express-mysql-session")(sessions);
+// Add Middleware
+const Modelsync = require("./middleware/SyncModels");
 // Add Routers 
 const authVerifyRouters = require("./routers/AuthRouters.js");
 const userRouters = require("./routers/userRoutes");
@@ -32,6 +34,8 @@ app.use(
     resave: false,
   })
 );
+
+// Modelsync();
 
 app.use(express.json());
 app.use(cors());
