@@ -10,7 +10,7 @@ const Login = (req, res) => {
           message: "User not found dd",
         });
       } else {
-        const checkPassword = await argon2.verify(user.password, password);   
+        const checkPassword = await argon2.verify(user.password, password);
         // const checkPassword = (user.password === password) ? true : false;
 
         if (!checkPassword) {
@@ -61,7 +61,15 @@ const ForgotPassword = (req, res) => {
     });
 };
 
+// const Logout = (req, res) => {
+const Logout = async (req, res) => {
+  req.session.destroy((err) => {
+    res.redirect("/auth/login");
+  });
+};
+
 module.exports = {
   Login,
   ForgotPassword,
+  Logout,
 };

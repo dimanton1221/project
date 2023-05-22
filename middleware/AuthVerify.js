@@ -10,14 +10,11 @@ const isLogin = async (req, res, next) => {
     if (user.password === password) {
       next();
     } else {
-      res.status(401).json({
-        message: "Please Login",
-      });
+      // redirect to login
+      res.redirect("/auth/login");
     }
   } catch (err) {
-    res.status(401).json({
-      message: "Please Login",
-    });
+    res.redirect("/auth/login");
   }
 };
 
@@ -40,8 +37,7 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
   isAdmin,
-  isLogin
-}
+  isLogin,
+};

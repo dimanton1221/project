@@ -4,14 +4,16 @@ const sessions = require("express-session");
 const mysqlStore = require("express-mysql-session")(sessions);
 // Add Middleware
 const Modelsync = require("./middleware/SyncModels");
-// Add Routers 
+// Add Routers
 const authVerifyRouters = require("./routers/AuthRouters.js");
 const userRouters = require("./routers/userRoutes");
 const jadwalRouters = require("./routers/JadwalRoutes");
 const ClientRouters = require("./routers/ClientRouters");
 const InvoiceRouters = require("./routers/InvoiceRoutes");
 const MeRouters = require("./routers/MeRoute");
+const DashboardRouters = require("./routers/DashboardRouters");
 const cors = require("cors");
+var expressLayouts = require('express-ejs-layouts');
 require("dotenv").config();
 
 const app = express();
@@ -47,16 +49,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
+app.use(expressLayouts);
 app.set("view engine", "ejs");
 
-
 // custom middleware
+app.use("/", DashboardRouters);
 app.use("/auth", authVerifyRouters);
 app.use("/users", userRouters);
 app.use("/jadwals", jadwalRouters);
 app.use("/clients", ClientRouters);
 app.use("/invoices", InvoiceRouters);
-app.use("/Profil",MeRouters);
+app.use("/Profil", MeRouters);
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
