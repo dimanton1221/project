@@ -56,7 +56,7 @@ app.use("/users", userRouters);
 app.use("/jadwals", jadwalRouters);
 app.use("/clients", ClientRouters);
 app.use("/invoices", InvoiceRouters);
-app.use("/me",MeRouters);
+app.use("/Profil",MeRouters);
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
