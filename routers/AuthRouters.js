@@ -4,16 +4,11 @@ const AuthController = require("../controllers/AuthControllers");
 const VerifyAuth = require("../middleware/AuthVerify");
 
 Router.get("/login", (req, res) => {
-  res.render("login", { title: "Login", layout: false});
+  res.render("Auth/mazerlogin", { title: "Login", layout: "layouts/Auth" });
 });
-
-Router.get("/signup", (req, res) => {
-  res.render("signup", { title: "Signup", layout: false });
-});
-
 // lupa password
 Router.get("/forgot-password", (req, res) => {
-  res.render("forgot-password", { title: "Forgot Password" });
+  res.render("Auth/ForgotPassword", { title: "Forgot Password", layout: "layouts/Auth" });
 });
 
 // Api rest

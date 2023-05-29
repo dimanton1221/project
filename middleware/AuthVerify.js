@@ -37,7 +37,20 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
+// check role
+const CheckRole = async (req, res, next) => {
+  const { username } = req.session;
+  try {
+    const user = await User.getUser(username);
+    return user.role;
+    next();
+  } catch (error) {
+    res.redirect("/auth/login");
+  }
+}
+
 module.exports = {
   isAdmin,
   isLogin,
+  CheckRole
 };

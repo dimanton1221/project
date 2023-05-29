@@ -1,0 +1,114 @@
+<script src="/assets/static/js/initTheme.js"></script>
+<div id="auth">
+    <div class="row h-100">
+        <div class="col-lg-5 col-12">
+            <div id="auth-left">
+                <div class="auth-logo">
+                    <a href="index.html"><img src="/assets/compiled/svg/logo.svg" alt="Logo" /></a>
+                </div>
+                <h1 class="auth-title">Masuk Cuy.</h1>
+                <p class="auth-subtitle mb-5">
+                    Masuklah ke akun Anda
+                </p>
+
+                <form id="loginForm" action="/auth/login" method="POST">
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="text" class="form-control form-control-xl" placeholder="Username"
+                            name="username" />
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="password" class="form-control form-control-xl" placeholder="Password"
+                            name="password" />
+                        <div class="form-control-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-lg d-flex align-items-end">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" />
+                        <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                            Keep me logged in
+                        </label>
+                    </div>
+                    <button id="loginButton" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
+                        Log in
+                    </button>
+                </form>
+
+                <div class="text-center mt-5 text-lg fs-4">
+                    <!-- <p class="text-gray-600">
+                Don't have an account?
+                <a href="auth-register.html" class="font-bold">Sign up</a>.
+              </p>
+              <p> -->
+                    <a class="font-bold" href="/auth/forgot-password">Forgot password?</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 d-none d-lg-block">
+            <div id="auth-right"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('loginButton').addEventListener('click', function (event) {
+        event.preventDefault(); // Mencegah form dari pengiriman default
+
+        // Mendapatkan nilai username dan password dari input
+        var username = document.getElementsByName('username')[0].value;
+        var password = document.getElementsByName('password')[0].value;
+
+        // Membuat objek data yang akan dikirim dalam format JSON
+        var data = {
+            username: username,
+            password: password
+        };
+
+        // Menonaktifkan tombol login
+        document.getElementById('loginButton').disabled = true;
+
+        // Mengirim permintaan POST ke URL /auth/login
+        fetch('/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    // Respon sukses, lakukan tindakan yang sesuai
+                    // Contoh: Membaca respons JSON dan melakukan redirect
+                    response.json().then(function (json) {
+                        // Lakukan tindakan setelah login berhasil
+                        // Contoh: Redirect ke halaman utama
+                        window.location.href = '/';
+                    });
+                } else {
+                    // Respon gagal, lakukan tindakan yang sesuai
+                    // Contoh: Menampilkan pesan kesalahan
+                    alert('Login failed. Please check your credentials and try again.');
+
+                    // Mengaktifkan kembali tombol login
+                    setTimeout(() => {
+                        document.getElementById('loginButton').disabled = false
+                    }, 2000);
+                }
+            })
+            .catch(function (error) {
+                // Kesalahan saat mengirim permintaan, lakukan tindakan yang sesuai
+                // Contoh: Menampilkan pesan kesalahan
+                // alert('An error occurred. Please check your internet connection and try again.');
+
+                // Mengaktifkan kembali tombol login
+                setTimeout(() => {
+                    document.getElementById('loginButton').disabled = false
+                }, 2000);
+            });
+    });
+</script>

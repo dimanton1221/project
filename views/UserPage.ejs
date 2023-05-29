@@ -1,0 +1,369 @@
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>User Control</h3>
+                <p class="text-subtitle text-muted">
+                    Anda bisa langsung menghapus akun orang yang anda benci
+                </p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            User Control
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">Daftar User</div>
+            <div class="card-body">
+                <div id="loading" style="display: none;">
+                    Please wait...
+                </div>
+                <div class="mb-5">
+                    <button class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#inlineForm"><i
+                            class="bi bi-person-plus-fill"></i> Create New User</button>
+                </div>
+                <table class="table table-striped" id="myTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Control</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Isi tabel akan di-generate melalui JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<!-- Create New Usermodals -->
+<div class="modal fade" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel33">
+                    Create New User
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <form action="/users/" id="userForm">
+                <div class="modal-body">
+                    <label for="email">Email: </label>
+                    <div class="form-group">
+                        <input id="email" type="text" placeholder="Email Address" class="form-control" />
+                    </div>
+                    <label for="Username">Username: </label>
+                    <div class="form-group">
+                        <input id="Username" type="text" placeholder="Password" class="form-control" />
+                    </div>
+                    <label for="password">Password: </label>
+                    <div class="form-group">
+                        <input id="password" type="password" placeholder="Password" class="form-control" />
+                    </div>
+                    <label for="Role">Role: </label>
+                    <div class="form-group mb-5">
+                        <select id="role" class="choices form-select">
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="closeButton" type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                    <button id="createButton" type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Create User</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editModalLabel">
+                    Edit User
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <form action="/users/" id="editUserForm">
+                <div class="modal-body">
+                    <label for="editEmail">Email: </label>
+                    <div class="form-group">
+                        <input id="editEmail" type="text" placeholder="Email Address" class="form-control" />
+                    </div>
+                    <label for="editUsername">Username: </label>
+                    <div class="form-group">
+                        <input id="editUsername" type="text" placeholder="Username" class="form-control" />
+                    </div>
+                    <label for="editPassword">Password: </label>
+                    <div class="form-group">
+                        <input id="editPassword" type="password" placeholder="Password" class="form-control" />
+                    </div>
+                    <label for="editRole">Role: </label>
+                    <div class="form-group mb-5">
+                        <select id="editRole" class="choices form-select">
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="editCloseButton" type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                    <button id="editSaveButton" type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Save Changes</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Fungsi untuk menampilkan tabel
+    function showTable() {
+        document.querySelector("#myTable").style.display = "table";
+        document.querySelector("#loading").style.display = "none";
+    }
+
+    // Fungsi untuk melakukan fetch dan menampilkan tabel setelah fetch selesai
+    function fetchData() {
+        fetch('/users')
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'User found') {
+                    // Ambil data dari response
+                    var users = data.data;
+
+                    // Manipulasi HTML tabel sesuai dengan data yang diterima
+                    var tableBody = document.querySelector("#tableBody");
+                    var tableRows = '';
+
+                    users.forEach((user, index) => {
+                        tableRows += '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + user.username + '</td>' +
+                            '<td>' + user.email + '</td>' +
+                            '<td>' + user.role + '</td>' +
+                            `<td>
+                                <a href="#" id="deleteButton" class="btn icon icon-left btn-danger delete-button" data-user-id="${user.user_id}">Delete</a>
+                                <a href="#" class="btn icon icon-left btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" data-user-id="${user.user_id}">Edit</a>
+                            </td>` +
+                            '</tr>';
+                    });
+
+                    tableBody.innerHTML = tableRows;
+
+                    // Inisialisasi simple-datatables setelah tabel selesai dimanipulasi
+                    new simpleDatatables.DataTable("#myTable");
+
+                    // Panggil fungsi untuk menampilkan tabel
+                    showTable();
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                // Tampilkan pesan error jika terjadi masalah dalam fetch data
+            });
+    }
+
+    // Menampilkan efek loading saat melakukan fetch
+    document.querySelector("#loading").style.display = "block";
+
+    // Fetch data dan tampilkan tabel
+    fetchData();
+
+
+
+    // MOdal Create User 
+    // Mendapatkan elemen-elemen form
+    const form = document.querySelector("#userForm");
+    const closeButton = document.querySelector("#closeButton");
+    const createButton = document.querySelector("#createButton");
+    const emailInput = document.querySelector("#email");
+    const usernameInput = document.querySelector("#Username");
+    const passwordInput = document.querySelector("#password");
+    const roleInput = document.querySelector("#role");
+
+    // Fungsi untuk mereset form
+    function resetForm() {
+
+        // form.reset();
+        emailInput.value = "";
+        usernameInput.value = "";
+        passwordInput.value = "";
+        roleInput.value = "User";
+    }
+
+    // Fungsi untuk menutup modal
+    function closeModal() {
+        const modal = document.querySelector(".modal");
+        const bootstrapModal = bootstrap.Modal.getInstance(modal);
+        bootstrapModal.hide();
+    }
+
+    // Mengirim data ke server saat tombol "Create User" ditekan
+    createButton.addEventListener("click", function () {
+        const userData = {
+            username: usernameInput.value,
+            password: passwordInput.value,
+            email: emailInput.value,
+            role: roleInput.value,
+        };
+
+        fetch("/users/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        })
+            .then((response) => {
+                if (response.status === 201) {
+                    // Jika respons berhasil (status code 201), tampilkan toast sukses
+                    Toastify({
+                        text: "User created successfully",
+                        duration: 3000,
+                        close: true,
+                        gravity: "bottom",
+                        position: "right",
+                        backgroundColor: "#4fbe87",
+                    }).showToast();
+
+                    // Reset form dan tutup modal
+                    resetFormAndCloseModal();
+                } else {
+                    // Jika respons tidak berhasil, tampilkan toast error
+                    // get message error.message
+                    // const respon = response.json();
+                    // console.log(respon);
+                    Toastify({
+                        text: "Cek Formulatir Anda",
+                        duration: 3000,
+                        close: true,
+                        gravity: "bottom",
+                        position: "right",
+                        backgroundColor: "#ff0000",
+                    }).showToast();
+                }
+                return response.json();
+            })
+            .then((data) => {
+
+                // Lakukan tindakan setelah permintaan POST selesai
+                fetchData();
+                // Tutup modal
+                closeModal();
+
+                // Reset nilai input
+                resetForm();
+
+                // Tampilkan pesan sukses atau ambil tindakan lain yang diinginkan
+            })
+            .catch((error) => {
+                console.error(error);
+                // Tampilkan pesan error atau ambil tindakan lain yang diinginkan
+            });
+    });
+
+    // Menutup modal saat tombol "Close" ditekan
+    closeButton.addEventListener("click", function () {
+        closeModal();
+    });
+
+    // Fungsi untuk mereset form dan menutup modal
+    function resetFormAndCloseModal() {
+        resetForm();
+        closeModal();
+    }
+
+
+
+
+    // Menambahkan event listener pada setiap tombol "Delete"
+    var tableBody = document.querySelector("#tableBody");
+
+    tableBody.addEventListener("click", function (event) {
+        var target = event.target;
+
+        // Periksa apakah elemen yang memicu event adalah tombol "Delete"
+        if (target.classList.contains("delete-button")) {
+            event.preventDefault();
+
+            // Mendapatkan user_id dari data atribut pada tombol "Delete"
+            var user_id = target.getAttribute("data-user-id");
+
+            // Mengirim permintaan fetch DELETE dengan user_id yang diperoleh
+            fetch("/users/" + user_id, {
+                method: "DELETE",
+            })
+                .then(function (response) {
+                    if (response.status === 200) {
+                        fetchData();
+                        // Jika respons berhasil (status code 200), tampilkan toast sukses
+                        Toastify({
+                            text: "User deleted successfully",
+                            duration: 3000,
+                            close: true,
+                            gravity: "bottom",
+                            position: "right",
+                            backgroundColor: "#4fbe87",
+                        }).showToast();
+                    } else {
+                        // Jika respons tidak berhasil, tampilkan toast error
+                        Toastify({
+                            text: "Error deleting user",
+                            duration: 3000,
+                            close: true,
+                            gravity: "bottom",
+                            position: "right",
+                            backgroundColor: "#ff0000",
+                        }).showToast();
+                    }
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    // Tampilkan pesan error atau ambil tindakan lain yang diinginkan
+                });
+        }
+    });
+
+
+</script>
+
+<script src="assets/extensions/toastify-js/src/toastify.js"></script>
+<link rel="stylesheet" href="assets/extensions/toastify-js/src/toastify.css" />
+<!-- <script src="assets/static/js/pages/toastify.js"></script> -->

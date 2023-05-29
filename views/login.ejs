@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
     <title>
-       <%= title %>
+        <%= title %>
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -121,34 +121,7 @@
     <script src="/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 </body>
 <style>
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
 
-    .btn-loading {
-        position: relative;
-    }
-
-    .btn-loading::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 1rem;
-        height: 1rem;
-        border: 0.2rem solid #fff;
-        border-top-color: transparent;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    .btn-red {
-        background-color: red !important;
-    }
-    
 </style>
 <script>
     $(document).ready(function () {
@@ -173,25 +146,22 @@
                 contentType: 'application/json',
                 success: function (response) {
                     if (response.status === 'success') {
-                        btn.removeClass('spinner-border').removeClass('btn-red').text('Sign in').attr('disabled',
-                            false);
+                        btn.removeClass('spinner-grow spinner-grow-sm').text('Sign in').attr('disabled', false);
                         window.location.href = '/';
                     }
                 },
-                // pas loaading
                 beforeSend: function () {
-                    btn.addClass('spinner-border').addClass('btn-red').text('Loading...').attr('disabled', true);
+                    btn.prop('disabled', true).html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...');
                 },
                 error: function () {
-                    // remove class btn-loading and remove juga btn-red
+                    btn.prop('disabled', true).html('Login Failed').addClass("bg-gradient-danger");
                     setTimeout(function () {
-                        btn.removeClass('spinner-border').removeClass('btn-red').text('Sign in').attr('disabled',
-                            false);
-                    }, 1000);
-                    // btn.removeClass('btn-loading').removeClass('btn-red').text('Sign in');
-                    alert("Login Gagal")
+                        btn.prop('disabled', false).html('Sign in').removeClass("bg-gradient-danger");
+                    }, 2000);
                 }
+
             });
+
         });
     });
 
