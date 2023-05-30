@@ -26,4 +26,15 @@ Router.get("/UserPage", AuthMiddleware.isLogin, AuthMiddleware.isAdmin, async (r
   });
 });
 
+
+Router.get("/ClientsPage", AuthMiddleware.isLogin, async (req, res) => {
+  CheckRole = await AuthMiddleware.CheckRole(req, res);
+  res.render("ClientsList", {
+    title: "Clients Control",
+    currentPage: "ClientsPage",
+    role: CheckRole
+  });
+});
+
+
 module.exports = Router;

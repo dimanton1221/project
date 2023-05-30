@@ -58,6 +58,13 @@
                     </li>
                     <% } %>
 
+                        <li class="sidebar-item <%= currentPage === 'ClientsPage' ? 'active' : '' %>">
+                            <a href="/ClientsPage" class="sidebar-link">
+                                <i class="bi bi-building"></i>
+                                <span>Clients</span>
+                            </a>
+                        </li>
+
 
                         <li class="sidebar-item">
                             <a href="/auth/logout" class="sidebar-link">

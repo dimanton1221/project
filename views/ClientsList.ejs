@@ -2,9 +2,9 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>User Control</h3>
+                <h3>Clients Control</h3>
                 <p class="text-subtitle text-muted">
-                    Anda bisa langsung menghapus akun orang yang anda benci
+                    Anda bisa mengatur Client yang terdaftar di sistem ini.
                 </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -23,7 +23,7 @@
     </div>
     <section class="section">
         <div class="card">
-            <div class="card-header">Daftar User</div>
+            <div class="card-header">Daftar Clients</div>
             <div class="card-body">
                 <div id="loading" style="display: none">Please wait...</div>
                 <div class="mb-5">
@@ -35,9 +35,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Username</th>
+                            <th>Nama</th>
+                            <th>Alamat</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            <th>Nomor Telepon</th>
                             <th>Control</th>
                         </tr>
                     </thead>
@@ -50,36 +51,34 @@
     </section>
 </div>
 
-<!-- Create New Usermodals -->
+
+<!-- Modal Add Clients  -->
 <div class="modal fade" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel33">Create New User</h4>
+                <h4 class="modal-title" id="myModalLabel33">Add Client</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
                 </button>
             </div>
-            <form action="/users/" id="userForm">
+            <form action="/clients/" id="userForm">
                 <div class="modal-body">
+                    <label for="name">Nama: </label>
+                    <div class="form-group">
+                        <input id="name" type="text" placeholder="Nama" class="form-control" />
+                    </div>
+                    <label for="address">Alamat: </label>
+                    <div class="form-group">
+                        <textarea id="address" placeholder="Alamat" class="form-control" rows="4"></textarea>
+                    </div>
                     <label for="email">Email: </label>
                     <div class="form-group">
                         <input id="email" type="text" placeholder="Email Address" class="form-control" />
                     </div>
-                    <label for="Username">Username: </label>
+                    <label for="phoneNumber">Nomor Telepon: </label>
                     <div class="form-group">
-                        <input id="Username" type="text" placeholder="Password" class="form-control" />
-                    </div>
-                    <label for="password">Password: </label>
-                    <div class="form-group">
-                        <input id="password" type="password" placeholder="Password" class="form-control" />
-                    </div>
-                    <label for="Role">Role: </label>
-                    <div class="form-group mb-5">
-                        <select id="role" class="choices form-select">
-                            <option value="User">User</option>
-                            <option value="Admin">Admin</option>
-                        </select>
+                        <input id="phoneNumber" type="text" placeholder="Nomor Telepon" class="form-control" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -89,7 +88,7 @@
                     </button>
                     <button id="createButton" type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
                         <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Create User</span>
+                        <span class="d-none d-sm-block">Create Client</span>
                     </button>
                 </div>
             </form>
@@ -97,36 +96,34 @@
     </div>
 </div>
 
+
 <!-- Edit User Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="editModalLabel">Edit User</h4>
+                <h4 class="modal-title" id="editModalLabel">Edit Client</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
                 </button>
             </div>
-            <form action="/users/" id="editUserForm">
+            <form action="/clients/" id="editUserForm">
                 <div class="modal-body">
+                    <label for="editName">Nama: </label>
+                    <div class="form-group">
+                        <input id="editName" type="text" placeholder="Nama" class="form-control" />
+                    </div>
+                    <label for="editAddress">Alamat: </label>
+                    <div class="form-group">
+                        <textarea id="editAddress" placeholder="Alamat" class="form-control"></textarea>
+                    </div>
                     <label for="editEmail">Email: </label>
                     <div class="form-group">
                         <input id="editEmail" type="text" placeholder="Email Address" class="form-control" />
                     </div>
-                    <label for="editUsername">Username: </label>
+                    <label for="editPhoneNumber">Nomor Telepon: </label>
                     <div class="form-group">
-                        <input id="editUsername" type="text" placeholder="Username" class="form-control" />
-                    </div>
-                    <label for="editPassword">Password: </label>
-                    <div class="form-group">
-                        <input id="editPassword" type="password" placeholder="Password" class="form-control" />
-                    </div>
-                    <label for="editRole">Role: </label>
-                    <div class="form-group mb-5">
-                        <select id="editRole" class="choices form-select">
-                            <option value="User">User</option>
-                            <option value="Admin">Admin</option>
-                        </select>
+                        <input id="editPhoneNumber" type="text" placeholder="Nomor Telepon" class="form-control" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -153,10 +150,10 @@
 
     // Fungsi untuk melakukan fetch dan menampilkan tabel setelah fetch selesai
     function fetchData() {
-        fetch("/users")
+        fetch("/clients")
             .then((response) => response.json())
             .then((data) => {
-                if (data.message === "User found") {
+                if (data.message === "Client found") {
                     // Ambil data dari response
                     var users = data.data;
 
@@ -171,17 +168,20 @@
                             (index + 1) +
                             "</td>" +
                             "<td>" +
-                            user.username +
+                            user.nama +
+                            "</td>" +
+                            "<td>" +
+                            user.alamat +
                             "</td>" +
                             "<td>" +
                             user.email +
                             "</td>" +
                             "<td>" +
-                            user.role +
+                            user.nomor_telepon +
                             "</td>" +
                             `<td>
-                                <a href="#" id="deleteButton" class="btn icon icon-left btn-danger delete-button" data-user-id="${user.user_id}">Delete</a>
-                                <a href="#" class="btn icon icon-left btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="editUser('${user.user_id}')" >Edit</a>
+                                <a href="#" id="deleteButton" class="btn icon icon-left btn-danger delete-button" data-user-id="${user.client_id}">Delete</a>
+                                <a href="#" class="btn icon icon-left btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="editUser('${user.client_id}')" >Edit</a>
                             </td>` +
                             "</tr>";
                     });
@@ -212,18 +212,14 @@
     const form = document.querySelector("#userForm");
     const closeButton = document.querySelector("#closeButton");
     const createButton = document.querySelector("#createButton");
+    const nameInput = document.querySelector("#name");
+    const addressInput = document.querySelector("#address");
     const emailInput = document.querySelector("#email");
-    const usernameInput = document.querySelector("#Username");
-    const passwordInput = document.querySelector("#password");
-    const roleInput = document.querySelector("#role");
+    const phoneNumberInput = document.querySelector("#phoneNumber");
 
     // Fungsi untuk mereset form
     function resetForm() {
-        // form.reset();
-        emailInput.value = "";
-        usernameInput.value = "";
-        passwordInput.value = "";
-        roleInput.value = "User";
+        form.reset();
     }
 
     // Fungsi untuk menutup modal
@@ -233,27 +229,27 @@
         bootstrapModal.hide();
     }
 
-    // Mengirim data ke server saat tombol "Create User" ditekan
+    // Mengirim data ke server saat tombol "Create Client" ditekan
     createButton.addEventListener("click", function () {
-        const userData = {
-            username: usernameInput.value,
-            password: passwordInput.value,
+        const clientData = {
+            nama: nameInput.value,
+            alamat: addressInput.value,
             email: emailInput.value,
-            role: roleInput.value,
+            no_telp: phoneNumberInput.value,
         };
 
-        fetch("/users/", {
+        fetch("/clients/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(userData),
+            body: JSON.stringify(clientData),
         })
             .then((response) => {
                 if (response.status === 201) {
                     // Jika respons berhasil (status code 201), tampilkan toast sukses
                     Toastify({
-                        text: "User created successfully",
+                        text: "Client created successfully",
                         duration: 3000,
                         close: true,
                         gravity: "bottom",
@@ -262,33 +258,25 @@
                     }).showToast();
 
                     // Reset form dan tutup modal
-                    resetFormAndCloseModal();
+                    resetForm();
+                    closeModal();
+                    fetchData();
                 } else {
                     // Jika respons tidak berhasil, tampilkan toast error
-                    // get message error.message
-                    // const respon = response.json();
-                    // console.log(respon);
-                    Toastify({
-                        text: "Cek Formulatir Anda",
-                        duration: 3000,
-                        close: true,
-                        gravity: "bottom",
-                        position: "right",
-                        backgroundColor: "#ff0000",
-                    }).showToast();
+                    //    jadikan json responnya 
+                    response.json().then((data) => {
+                        Toastify({
+                            text: data.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "bottom",
+                            position: "right",
+                            backgroundColor: "#ff4444",
+                        }).showToast();
+                    });
+                    
+
                 }
-                return response.json();
-            })
-            .then((data) => {
-                // Lakukan tindakan setelah permintaan POST selesai
-                fetchData();
-                // Tutup modal
-                closeModal();
-
-                // Reset nilai input
-                resetForm();
-
-                // Tampilkan pesan sukses atau ambil tindakan lain yang diinginkan
             })
             .catch((error) => {
                 console.error(error);
@@ -296,10 +284,16 @@
             });
     });
 
-    // Menutup modal saat tombol "Close" ditekan
+    // Reset form dan tutup modal saat tombol "Close" ditekan
     closeButton.addEventListener("click", function () {
+        resetForm();
         closeModal();
     });
+
+    // Menutup modal saat tombol "Close" ditekan
+    // closeButton.addEventListener("click", function () {
+    //     closeModal();
+    // });
 
     // Fungsi untuk mereset form dan menutup modal
     function resetFormAndCloseModal() {
@@ -321,7 +315,7 @@
             var user_id = target.getAttribute("data-user-id");
 
             // Mengirim permintaan fetch DELETE dengan user_id yang diperoleh
-            fetch("/users/" + user_id, {
+            fetch("/clients/" + user_id, {
                 method: "DELETE",
             })
                 .then(function (response) {
@@ -356,7 +350,7 @@
     });
 
     function getUserData(userId) {
-        return fetch(`/users/${userId}`)
+        return fetch(`/clients/${userId}`)
             .then((response) => response.json())
             .then((data) => data)
             .catch((error) => {
@@ -366,22 +360,20 @@
     function editUser(userId) {
         const editModal = document.getElementById("editModal");
         const editUserForm = document.getElementById("editUserForm");
+        const editNameInput = document.getElementById("editName");
+        const editAddressInput = document.getElementById("editAddress");
         const editEmailInput = document.getElementById("editEmail");
-        const editUsernameInput = document.getElementById("editUsername");
-        const editPasswordInput = document.getElementById("editPassword");
-        const editRoleSelect = document.getElementById("editRole");
+        const editPhoneNumberInput = document.getElementById("editPhoneNumber");
         const saveButton = document.getElementById("editSaveButton");
 
         getUserData(userId).then((userData) => {
+            editNameInput.value = userData.data.nama;
+            editAddressInput.value = userData.data.alamat;
             editEmailInput.value = userData.data.email;
-            editUsernameInput.value = userData.data.username;
-            editRoleSelect.value = userData.data.role;
+            editPhoneNumberInput.value = userData.data.nomor_telepon;
 
             // Set data-user-id attribute on the form
             editUserForm.setAttribute("data-user-id", userId);
-
-            // Empty password input if password is empty
-            editPasswordInput.value = "";
 
             // Show modal using Bootstrap modal
             // const bootstrapModal = new bootstrap.Modal(editModal);
@@ -398,14 +390,14 @@
         // Save changes when save button is clicked
         saveButton.addEventListener("click", () => {
             const formData = {
-                username: editUsernameInput.value,
-                password: editPasswordInput.value,
+                name: editNameInput.value,
+                address: editAddressInput.value,
                 email: editEmailInput.value,
-                role: editRoleSelect.value,
+                phoneNumber: editPhoneNumberInput.value,
             };
 
             const userId = editUserForm.getAttribute("data-user-id");
-            const url = `/users/${userId}`;
+            const url = `/clients/${userId}`;
             const options = {
                 method: "PUT",
                 body: JSON.stringify(formData),
@@ -421,7 +413,7 @@
                     // Handle response from the server
                     console.log(data);
                     Toastify({
-                        text: "User Update successfully",
+                        text: "Client updated successfully",
                         duration: 3000,
                         close: true,
                         gravity: "bottom",
@@ -438,6 +430,7 @@
                 });
         });
     }
+
 
 </script>
 
